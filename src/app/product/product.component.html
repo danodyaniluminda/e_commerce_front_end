@@ -1,0 +1,291 @@
+<app-admin-header></app-admin-header>
+<br>
+<app-sidenav></app-sidenav>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<div class="container-fluid">
+<div class="row">
+  <div class="col-md-10">
+    <strong>All Product List</strong>
+  </div>
+  <div class="col-md-2">
+    <button type="button" class="btn btn-dark float-right" (click)="addProductPopup()" data-toggle="modal"
+            data-target="#addEditProductModal">
+      Add New Product
+    </button>
+  </div>
+</div>
+<div class="mt-4"></div>
+<div class="table-responsive table-container">
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th scope="col">Product Name</th>
+    <th scope="col">Display Image</th>
+    <th scope="col">Category</th>
+    <th scope="col">Sub Category</th>
+    <th scope="col">Brand</th>
+    <th scope="col">Size</th>
+    <th scope="col">Color</th>
+    <th scope="col">Status</th>
+    <th scope="col">Discount(%)</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product_data of all_product_data; let i = index">
+    <td>{{product_data.name}}</td>
+    <td>{{product_data.uploadPhoto}}</td>
+    <td>{{product_data.category}}</td>
+    <td>{{product_data.subCategory}}</td>
+    <td>{{product_data.brand}}</td>
+    <td>{{product_data.size}}</td>
+    <td>{{product_data.color}}</td>
+    <td>{{product_data.status}}</td>
+    <td>{{product_data.discount}}</td>
+
+    <td>
+                <span class="sim-pointer"  data-toggle="modal" data-target="#addEditProductModal" (click)="editProduct(product_data)"><i
+                  class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+      &nbsp;&nbsp;&nbsp;
+      <span class="sim-pointer" ><i class="fa fa-trash" aria-hidden="true" (click)="deleteProduct(product_data.id)"></i></span>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</div>
+  <div class="modal" id="addEditProductModal">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content" id="custom-modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{popup_header}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!-- First Column -->
+            <div class="col-md-4">
+              <form [formGroup]="addEditProductForm">
+                <div class="form-group">
+                  <label >Product Name</label>
+                  <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid':addEditProduct && rf.name.errors}" />
+                  <div *ngIf="addEditProduct && rf.name.errors" class="invalid-feedback">
+                    <div *ngIf="rf.name.errors.required">Name is required</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for=>Product Image URL</label>
+                  <input type="url" class="form-control" formControlName="uploadPhoto" [ngClass]="{'is-invalid':addEditProduct && rf.uploadPhoto.errors}">
+                  <div *ngIf="addEditProduct && rf.uploadPhoto.errors" class="invalid-feedback">
+                    <div *ngIf="rf.uploadPhoto.errors.required">Please upload file</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for=>Description</label>
+                  <textarea class="form-control" rows="3" formControlName="productDesc" [ngClass]="{'is-invalid':addEditProduct && rf.productDesc.errors}"></textarea>
+                  <div *ngIf="addEditProduct && rf.productDesc.errors" class="invalid-feedback">
+                    <div *ngIf="rf.productDesc.errors.required">Write something about product</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for=>Buying Price</label>
+                  <input type="text" class="form-control" formControlName="buyPrice" [ngClass]="{'is-invalid':addEditProduct && rf.buyPrice.errors}" />
+                  <div *ngIf="addEditProduct && rf.buyPrice.errors" class="invalid-feedback">
+                    <div *ngIf="rf.buyPrice.errors.required">Buying Price is required</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for=>Selling Price</label>
+                  <input type="text" class="form-control" formControlName="sellPrice" [ngClass]="{'is-invalid':addEditProduct && rf.sellPrice.errors}" />
+                  <div *ngIf="addEditProduct && rf.sellPrice.errors" class="invalid-feedback">
+                    <div *ngIf="rf.sellPrice.errors.required">Sell Price is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for=>Category</label>
+                  <select class="form-control" formControlName="category" [ngClass]="{'is-invalid':addEditProduct && rf.status.errors}">
+                    <option>Category 1</option>
+                    <option>Category 2</option>
+                    <option>Category 3</option>
+                  </select>
+                  <div *ngIf="addEditProduct && rf.status.errors" class="invalid-feedback">
+                    <div *ngIf="rf.category.errors.required">Select one option</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for=>Sub Category</label>
+                  <select class="form-control" formControlName="subCategory" [ngClass]="{'is-invalid':addEditProduct && rf.status.errors}">
+                    <option>Category 1</option>
+                    <option>Category 2</option>
+                    <option>Category 3</option>
+                  </select>
+                  <div *ngIf="addEditProduct && rf.status.errors" class="invalid-feedback">
+                    <div *ngIf="rf.subCategory.errors.required">Select one option</div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Second Column -->
+            <div class="col-md-4">
+              <form [formGroup]="addEditProductForm">
+                <div class="form-group">
+                  <label >Brand</label>
+                  <input type="text" class="form-control" formControlName="brand" [ngClass]="{'is-invalid': addEditProduct && rf.brand.errors}" />
+                  <div *ngIf="addEditProduct && rf.brand.errors" class="invalid-feedback">
+                    <div *ngIf="rf.brand.errors.required">Brand is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label >Size</label>
+                  <input type="text" class="form-control" formControlName="size" [ngClass]="{'is-invalid': addEditProduct && rf.size.errors}" />
+                  <div *ngIf="addEditProduct && rf.size.errors" class="invalid-feedback">
+                    <div *ngIf="rf.size.errors.required">Size is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label >Color</label>
+                  <input type="text" class="form-control" formControlName="color" [ngClass]="{'is-invalid': addEditProduct && rf.color.errors}" />
+                  <div *ngIf="addEditProduct && rf.color.errors" class="invalid-feedback">
+                    <div *ngIf="rf.color.errors.required">Color is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label >Status</label>
+                  <select class="form-control" formControlName="status" [ngClass]="{'is-invalid': addEditProduct && rf.status.errors}">
+                    <option value="available">Available</option>
+                    <option value="out_of_stock">Out of Stock</option>
+                    <option value="coming_soon">Coming Soon</option>
+                  </select>
+                  <div *ngIf="addEditProduct && rf.status.errors" class="invalid-feedback">
+                    <div *ngIf="rf.status.errors.required">Status is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label >Return Period</label>
+                  <input type="text" class="form-control" formControlName="returnPeriod" [ngClass]="{'is-invalid': addEditProduct && rf.returnPeriod.errors}" />
+                  <div *ngIf="addEditProduct && rf.returnPeriod.errors" class="invalid-feedback">
+                    <div *ngIf="rf.returnPeriod.errors.required">Return Period is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label >Item Location</label>
+                  <input type="text" class="form-control" formControlName="itemLocation" [ngClass]="{'is-invalid': addEditProduct && rf.itemLocation.errors}" />
+                  <div *ngIf="addEditProduct && rf.itemLocation.errors" class="invalid-feedback">
+                    <div *ngIf="rf.itemLocation.errors.required">Item Location is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label >Discount (%)</label>
+                  <input type="number" class="form-control" formControlName="discount" [ngClass]="{'is-invalid': addEditProduct && rf.discount.errors}" />
+                  <div *ngIf="addEditProduct && rf.discount.errors" class="invalid-feedback">
+                    <div *ngIf="rf.discount.errors.required">Discount is required</div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Third Column -->
+            <div class="col-md-4">
+              <form [formGroup]="addEditProductForm">
+
+                <div class="form-group">
+                  <label >Specification</label>
+                  <textarea class="form-control" rows="3" formControlName="specification" [ngClass]="{'is-invalid': addEditProduct && rf.specification.errors}"></textarea>
+                  <div *ngIf="addEditProduct && rf.specification.errors" class="invalid-feedback">
+                    <div *ngIf="rf.specification.errors.required">Specification is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label >Features</label>
+                  <textarea class="form-control" rows="3" formControlName="features" [ngClass]="{'is-invalid': addEditProduct && rf.features.errors}"></textarea>
+                  <div *ngIf="addEditProduct && rf.features.errors" class="invalid-feedback">
+                    <div *ngIf="rf.features.errors.required">Features are required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Package Dimensions</label>
+                  <div class="row">
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Width" formControlName="width" [ngClass]="{'is-invalid': addEditProduct && rf.width.errors}" />
+                      <div *ngIf="addEditProduct && rf.width.errors" class="invalid-feedback">
+                        <div *ngIf="rf.width.errors.required">Width is required</div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Height" formControlName="height" [ngClass]="{'is-invalid': addEditProduct && rf.height.errors}" />
+                      <div *ngIf="addEditProduct && rf.height.errors" class="invalid-feedback">
+                        <div *ngIf="rf.height.errors.required">Height is required</div>
+                      </div>
+                    </div>
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Length" formControlName="length" [ngClass]="{'is-invalid': addEditProduct && rf.length.errors}" />
+                      <div *ngIf="addEditProduct && rf.length.errors" class="invalid-feedback">
+                        <div *ngIf="rf.length.errors.required">Length is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label >Serial Number</label>
+                  <input type="text" class="form-control" formControlName="serialNumber" [ngClass]="{'is-invalid': addEditProduct && rf.serialNumber.errors}" />
+                  <div *ngIf="addEditProduct && rf.serialNumber.errors" class="invalid-feedback">
+                    <div *ngIf="rf.serialNumber.errors.required">Serial Number is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label >HS Code</label>
+                  <input type="text" class="form-control" formControlName="hsCode" [ngClass]="{'is-invalid': addEditProduct && rf.hsCode.errors}" />
+                  <div *ngIf="addEditProduct && rf.hsCode.errors" class="invalid-feedback">
+                    <div *ngIf="rf.hsCode.errors.required">HS Code is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for=>Status</label>
+                  <select class="form-control" formControlName="status" [ngClass]="{'is-invalid':addEditProduct && rf.status.errors}">
+                    <option value="draft">Draft</option>
+                    <option value="publish">Publish</option>
+                    <option value="inactive">Inactive</option>
+                  </select>
+                  <div *ngIf="addEditProduct && rf.status.errors" class="invalid-feedback">
+                    <div *ngIf="rf.status.errors.required">Select one option</div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="form-group float-right"> <!-- Added justify-content-end class -->
+            <button class="btn btn-primary" (click)="addNewProduct()" *ngIf="add_product">Add New</button>
+            <button type="button" class="btn btn-primary" (click)="updateProduct()" *ngIf="edit_product">Update</button>
+            <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="mt-4"></div>
+<div class="back-to-dashboard">
+  <button type="button" class="btn btn-primary float-right" (click)="goToDashboard()">
+    Back to Dashboard
+  </button>
+</div>
+</div>
+  </div>
+</main>

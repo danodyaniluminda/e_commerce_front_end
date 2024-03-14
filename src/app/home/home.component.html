@@ -1,0 +1,184 @@
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+  <!-- container -->
+  <div class="container">
+    <!-- responsive-nav -->
+    <div id="responsive-nav">
+      <!-- NAV -->
+      <ul class="main-nav nav py-3">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Hot Sale</a></li>
+        <li><a href="#">Contact Us</a></li>
+
+      </ul>
+      <!-- /NAV -->
+    </div>
+    <!-- /responsive-nav -->
+  </div>
+  <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->
+
+<div class="container-fluid">
+  <div class="row">
+    <div id="image-wrapper" class="col-md-12">
+      <img id="transition-image" [src]="images[currentImageIndex]" alt="Transition Image">
+      <!-- Next Image Arrow -->
+      <button id="next-image-btn" class="navigation-arrow" (click)="nextImage()">
+        <i class="fa fa-arrow-right"></i> <!-- Assuming you're using Font Awesome for icons -->
+      </button>
+      <!-- Previous Image Arrow -->
+      <button id="prev-image-btn" class="navigation-arrow" (click)="prevImage()">
+        <i class="fa fa-arrow-left"></i> <!-- Assuming you're using Font Awesome for icons -->
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- SECTION -->
+<div class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- section title -->
+    <div class="col-md-12">
+      <div class="section-title">
+        <h2 class="title">Categories</h2>
+      </div>
+    </div>
+    <!-- /section title -->
+
+    <div class="categories-container">
+      <div class="categories" #categories>
+        <!-- Place category icons here -->
+        <div class="category" *ngFor="let category of categoriesList">
+          <i class="{{ category.icon }}"></i>
+          <span>{{ category.name }}</span>
+        </div>
+      </div>
+    </div>
+
+<!--    &lt;!&ndash; Arrows outside categories container &ndash;&gt;-->
+<!--    <div class="arrow left" (click)="scrollCategories('left')">-->
+<!--      <i class="fa fa-angle-left"></i>-->
+<!--    </div>-->
+<!--    <div class="arrow right" (click)="scrollCategories('right')">-->
+<!--      <i class="fa fa-angle-right"></i>-->
+<!--    </div>-->
+
+
+    <!-- row -->
+    <div class="row">
+      <!-- section title -->
+      <div class="col-md-12">
+        <div class="section-title">
+          <h2 class="title">New Products</h2>
+        </div>
+      </div>
+      <!-- /section title -->
+
+      <!-- product-list.component.html -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="products-container" #container>
+            <!-- Product items -->
+            <div class="product-item" *ngFor="let product of products">
+              <!-- Shop -->
+                <div class="shop-img">
+                  <img [src]="product.imageUrl" alt="">
+                </div>
+                <div class="shop-body">
+                  <h3>{{ product.name }}</h3>
+                  <p>Price: ${{ product.price }}</p>
+                  <p>Rating: {{ product.rating }}</p>
+                  <a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+              <!-- /Shop -->
+            </div>
+            <!-- /Product items -->
+          </div>
+          <!-- Navigation arrows -->
+          <div class="navigation-arrows">
+            <button class="prev-btn" (click)="scrollLeft()"><i class="fa fa-chevron-left"></i></button>
+            <button class="next-btn" (click)="scrollRight()"><i class="fa fa-chevron-right"></i></button>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+
+
+
+
+<!-- SECTION -->
+<div class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+
+
+</div>
+    <!-- HOT DEAL SECTION -->
+    <div id="hot-deal" class="section">
+      <!-- container-fluid instead of container -->
+      <div class="container-fluid">
+        <!-- row -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="hot-deal">
+              <ul class="hot-deal-countdown">
+                <li>
+                  <div>
+                    <h3>{{ days }}</h3>
+                    <span>Days</span>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <h3>{{ hours }}</h3>
+                    <span>Hours</span>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <h3>{{ minutes }}</h3>
+                    <span>Minutes</span>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <h3>{{ seconds }}</h3>
+                    <span>Seconds</span>
+                  </div>
+                </li>
+              </ul>
+              <h2 class="text-uppercase">hot deal this week</h2>
+              <p>New Collection Up to 50% OFF</p>
+              <a class="primary-btn cta-btn" href="#">Shop now</a>
+            </div>
+          </div>
+        </div>
+        <!-- /row -->
+      </div>
+      <!-- /container-fluid -->
+    </div>
+    <!-- /HOT DEAL SECTION -->
+
+</div>
+</div>
+
+
+
+
+

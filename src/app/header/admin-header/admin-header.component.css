@@ -1,0 +1,18 @@
+#login-button,
+#notification-button {
+  float: right;
+  margin-right: 20px; /* Adjust as needed */
+}
+
+#login-button a,
+#notification-button a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #000; /* Adjust color as needed */
+}
+
+#login-button i,
+#notification-button i {
+  margin-right: 5px; /* Adjust as needed */
+}

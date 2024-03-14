@@ -1,0 +1,27 @@
+<app-admin-header></app-admin-header>
+<div class="container-fluid">
+  <div class="row">
+    <app-sidenav></app-sidenav>
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<form (ngSubmit)="onSubmit()">
+  <label>Category Name:</label>
+  <input type="text" [(ngModel)]="newCategory.categoryName" name="categoryName" required>
+  <div *ngFor="let subcategory of newCategory.subcategories; let i=index">
+    <label>Subcategory Name:</label>
+    <input type="text" [(ngModel)]="newCategory.subcategories[i].subcategoryName" name="subcategoryName" required>
+    <button type="button" (click)="removeSubcategory(i)">Remove</button>
+  </div>
+
+  <button type="button" (click)="addSubcategory()">Add Subcategory</button>
+
+  <button type="submit" class="btn btn-primary float-right" >Add Category</button>
+  <button type="button" class="btn btn-primary float-right" (click)="navigateToDashboard()">
+    Back to Dashboard
+  </button>
+</form>
+      </div>
+    </main>
+  </div>
+</div>
+
