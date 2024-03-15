@@ -1,10 +1,4 @@
 
-export interface serverResponse  {
-  count: number;
-  products: ProductData[]
-}
-
-
 export interface ProductData {
   id: number;
   name: string;

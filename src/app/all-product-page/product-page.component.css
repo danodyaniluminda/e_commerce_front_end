@@ -1,0 +1,25 @@
+.card {
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.ratings {
+  color: #FFD700; /* Yellow color for stars */
+}
+
+.star {
+  font-size: 1.5rem;
+}
+
+.card-text {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.spacer {
+  margin-top: 10px; /* Adjust the margin as needed */
+}

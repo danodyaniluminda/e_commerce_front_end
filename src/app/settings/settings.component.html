@@ -1,0 +1,30 @@
+<app-admin-header></app-admin-header>
+<br>
+<app-sidenav></app-sidenav>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="container">
+    <h2 class="mt-5 mb-4">Settings</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <button routerLink="/settings/user-creations" mat-raised-button color="primary" class="w-100 mb-3">
+          <i class="fa fa-user-plus fa-5x"></i> User Creations
+        </button>
+        <button routerLink="/settings/user-authorizations" mat-raised-button color="primary" class="w-100 mb-3">
+          <i class="fa fa-user-secret fa-5x"></i> User Authorizations
+        </button>
+        <button routerLink="/settings/user-permissions" mat-raised-button color="primary" class="w-100 mb-3">
+          <i class="fa fa-lock fa-5x"></i> User Permissions
+        </button>
+      </div>
+      <div class="col-md-6">
+        <button routerLink="/settings/password-reset" mat-raised-button color="primary" class="w-100 mb-3">
+          <i class="fa fa-key fa-5x"></i> Password Reset
+        </button>
+        <button routerLink="/settings/email-sms-settings" mat-raised-button color="primary" class="w-100 mb-3">
+          <i class="fa fa-envelope fa-5x"></i> Email and SMS Settings
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+

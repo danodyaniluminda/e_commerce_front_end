@@ -1,6 +1,8 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import {Product, HOME_PRODUCT_DATA} from "./home-product.mode";
 import {SAMPLE_USER_DATA, UserData} from "../users/user.model";
+import {CartService} from "../service/cart.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -25,6 +27,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   minutes: number | undefined;
   seconds: number | undefined;
   products: Product[] = HOME_PRODUCT_DATA;
+
+  constructor(private router: Router) { }
+
 
   ngOnInit() {
     this.startAutoScroll();
@@ -137,5 +142,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       behavior: 'smooth'
     });
   }
+  shopNow(product: any) {
+    // Logic for shopping now, assuming product has an ID property
+    this.router.navigate(['/product', product.id]);
 
+
+
+  }
 }

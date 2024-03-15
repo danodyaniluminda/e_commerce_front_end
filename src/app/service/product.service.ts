@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {environment} from "../environments/environment";
-import {ProductData, serverResponse} from "../add-products/product-model.component";
+import {ProductData,} from "../add-products/product-model.component";
+import {HOME_PRODUCT_DATA, Product, serverResponse} from "../home/home-product.mode";
 // import {ApiService} from "./api.service";
 
 @Injectable({
@@ -22,8 +23,19 @@ export class ProductService {
     });
   }
 
-  getSingleProduct(id: Number): Observable<ProductData> {
-    return this.http.get<ProductData>(this.url + 'products/' + id);
+  // getSingleProduct(id: number): Observable<Product> {
+  //   return this.http.get<Product>(this.url + 'all-products/' + id);
+  // }
+
+
+  getSingleProduct(id: number): Observable<Product> {
+    // Mocking the behavior of fetching a single product by ID
+    const product = HOME_PRODUCT_DATA.find(prod => prod.id === id);
+    if (product) {
+      return of(product); // Return an observable of the found product
+    } else {
+      throw new Error(`Product with ID ${id} not found`); // Throw an error if the product is not found
+    }
   }
 
   getProductsFromCategory(catName: String): Observable<ProductData[]> {

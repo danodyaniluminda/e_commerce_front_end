@@ -1,0 +1,44 @@
+<app-header></app-header>
+<app-main-header></app-main-header>
+
+<div class="product-container" *ngIf="product && product.length > 0">
+  <div *ngFor="let item of product" class="product-card">
+    <div class="product-details">
+      <h2>{{ item.name }}</h2>
+      <p class="quantity">Quantity: {{ item.quantity }}</p>
+      <p class="ratings">Ratings: {{ item.rating }}</p>
+      <p class="price">Price: ${{ item.price }}</p>
+
+      <img [src]="item.imageUrl" alt="Main Image" class="main-image">
+
+<!--      <div class="gallery">-->
+<!--        <div class="gallery-images" #galleryImages>-->
+<!--          <div *ngFor="let image of item.imageURLS">-->
+<!--            <img [src]="image" alt="Gallery Image">-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <button class="prev-button" (click)="scrollGallery(-1)">Previous</button>-->
+<!--        <button class="next-button" (click)="scrollGallery(1)">Next</button>-->
+<!--      </div>-->
+
+
+      <h3>Features:</h3>
+
+      <h3>Dimensions:</h3>
+      <p>{{ item.size }}</p>
+
+      <p class="description">{{ item.productDesc }}</p>
+      <div class="buttons-container">
+        <button class="add-to-cart-btn" (click)="addToCart(item.id)">Add to Cart</button>
+        <button class="buy-now-btn">Buy Now</button>
+      </div>
+      <!-- Additional details here as needed -->
+    </div>
+  </div>
+</div>
+
+<div class="loading" *ngIf="!product">
+  <p>Loading product...</p>
+</div>
+
+<app-footer></app-footer>

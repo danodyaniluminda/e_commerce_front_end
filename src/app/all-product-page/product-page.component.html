@@ -1,0 +1,30 @@
+<app-header></app-header>
+<app-main-header></app-main-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3" *ngFor="let product of products">
+      <div class="card">
+        <!-- Product image -->
+        <img class="card-img-top" [src]="product.imageUrl" alt="Product Image">
+
+        <div class="card-body">
+          <!-- Product name -->
+          <h5 class="card-title">{{ product.name  }}</h5>
+          <!-- Ratings -->
+          <div class="ratings">
+            <span> Rating: {{ product.rating }} &#9733;</span>
+          </div>
+          <!-- Product price -->
+          <p class="card-text">Rs.{{ product.price }}</p>
+          <!-- Add to cart button -->
+          <button class="btn btn-primary" (click)="AddProduct(product.id)">Add to Cart</button>
+          <!-- Space between buttons -->
+          <div class="spacer"></div>
+          <!-- Shop now button -->
+          <button class="btn btn-success" (click)="shopNow(product)">Shop Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

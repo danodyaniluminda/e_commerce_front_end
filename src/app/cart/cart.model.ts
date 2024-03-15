@@ -1,9 +1,10 @@
 import {ProductData} from "../add-products/product-model.component";
+import {Product} from "../home/home-product.mode";
 
 export interface CartModelServer {
   total: number;
   data: [{
-    product: ProductData,
+    product: Product,
     numInCart: number
   }];
 }
@@ -15,44 +16,26 @@ export interface CartModelPublic {
     incart: number
   }]
 }
-export const SAMPLE_CART_DATA: CartModelServer = {
-  total: 1,
-  data: [
-    {
-      product: {
-        id: 1,
-        name: 'Sample Product 1',
-        image: './../../../assets/img/shop01.png',
-        price: 10 // Sample price
-        ,
-        uploadPhoto: "",
-        buyPrice: 0,
-        sellPrice: 0,
-        category: "",
-        subCategory: "",
-        brand: "",
-        productDesc: "",
-        status: "",
-        color: "",
-        size: "",
-        returnPeriod: {
-          months: 0,
-          days: 0
-        },
-        itemLocation: "",
-        discount: 0,
-        specification: "",
-        features: "",
-        width: 0,
-        height: 0,
-        length: 0,
-        serialNumber: "",
-        hsCode: "",
-        description: "",
-        quantity: 0,
-        images: ""
-      },
-      numInCart: 1 //quantity
-    }
-  ]
-};
+// export const SAMPLE_CART_DATA: CartModelServer = {
+//   total: 1,
+//   data: [
+//     {
+//       product: {
+//         id: 2,
+//         name: 'Accessories Collection',
+//         imageUrl: './../../../assets/img/shop02.png',
+//         price: 49,
+//         rating: [4.2],
+//         quantity: 10,
+//         productDesc: "Description of Product 1",
+//         status: "Available",
+//         color: "Red",
+//         size: "Large",
+//         discount: 10,
+//         serialNumber: "SN123456",
+//         itemLocation: "Warehouse A"
+//       },
+//       numInCart: 10 //quantity
+//     }
+//   ]
+// };

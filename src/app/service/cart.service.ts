@@ -1,14 +1,9 @@
 import {Injectable} from '@angular/core';
 import {ProductService} from "./product.service";
 import {BehaviorSubject} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {NavigationExtras, Router} from "@angular/router";
-import {OrderService} from "./order.service";
-import {NgxSpinnerService} from "ngx-spinner";
 import {ToastrService} from "ngx-toastr";
-import {environment} from "../environments/environment";
-import {ProductData} from "../add-products/product-model.component";
 import {CartModelPublic, CartModelServer} from "../cart/cart.model";
+import {Product} from "../home/home-product.mode";
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +12,11 @@ import {CartModelPublic, CartModelServer} from "../cart/cart.model";
 
 export class CartService {
 
-  // ServerURL = environment.server_url;
-
-  private cartDataClient: CartModelPublic = {prodData: [{incart: 0, id: 0}], total: 0};  // This will be sent to the backend Server as post data
+  private cartDataClient: CartModelPublic = {prodData: [{incart: 0, id: 0}], total: 0};  //  sent to the backend Server as post data
   // Cart Data variable to store the cart information on the server
   private cartDataServer: CartModelServer = {
     data: [{
-      product: {} as ProductData,
+      product: {} as Product,
       numInCart: 0
     }],
     total: 0
@@ -36,12 +29,7 @@ export class CartService {
   cartDataObs$ = new BehaviorSubject<CartModelServer>(this.cartDataServer);
 
 
-  constructor(private productService: ProductService,
-              private orderService: OrderService,
-              private httpClient: HttpClient,
-              private router: Router,
-              private spinner: NgxSpinnerService,
-              private toast: ToastrService) {
+  constructor(private productService: ProductService, private toast: ToastrService) {
 
     this.cartTotal$.next(this.cartDataServer.total);
     this.cartDataObs$.next(this.cartDataServer);
@@ -56,7 +44,7 @@ export class CartService {
           this.cartDataClient = info;
           // Loop through each entry and put it in the cartDataServer object
           this.cartDataClient.prodData.forEach(p => {
-            this.productService.getSingleProduct(p.id).subscribe((actualProdInfo: ProductData) => {
+            this.productService.getSingleProduct(p.id).subscribe((actualProdInfo: Product) => {
               if (this.cartDataServer.data[0].numInCart === 0) {
                 this.cartDataServer.data[0].numInCart = p.incart;
                 this.cartDataServer.data[0].product = actualProdInfo;
@@ -98,6 +86,7 @@ export class CartService {
         this.cartDataServer.data[0].product = prod;
         this.cartDataServer.data[0].numInCart = quantity !== undefined ? quantity : 1;
         this.CalculateTotal();
+        this.updateLocalStorage();
         this.cartDataClient.prodData[0].incart = this.cartDataServer.data[0].numInCart;
         this.cartDataClient.prodData[0].id = prod.id;
         this.cartDataClient.total = this.cartDataServer.total;
@@ -112,6 +101,8 @@ export class CartService {
       }  // END of IF
       // Cart is not empty
       else {
+        this.updateLocalStorage(); //testing method
+
         let index = this.cartDataServer.data.findIndex(p => p.product.id === prod.id);
 
         // 1. If chosen add-products is already in cart array
@@ -212,7 +203,7 @@ export class CartService {
       if (this.cartDataServer.total === 0) {
         this.cartDataServer = {
           data: [{
-            product: {} as ProductData,
+            product: {} as Product,
             numInCart: 0
           }],
           total: 0
@@ -230,58 +221,11 @@ export class CartService {
 
   }
 
-  // CheckoutFromCart(userId: number) {
-  //   this.httpClient.post(`${this.ServerURL}orders/payment`, null).subscribe((res) => {
-  //     console.clear();
-  //     const response = res as { success?: boolean };
-  //     if (response.success !== undefined) {
-  //       this.resetServerData();
-  //       this.httpClient.post(`${this.ServerURL}orders/new`, {
-  //         userId: userId,
-  //         products: this.cartDataClient.prodData
-  //       }).subscribe((data: OrderConfirmationResponse) => {
-  //
-  //         this.orderService.getSingleOrder(data.order_id).then(prods => {
-  //           if (data.success) {
-  //             const navigationExtras: NavigationExtras = {
-  //               state: {
-  //                 message: data.message,
-  //                 products: prods,
-  //                 orderId: data.order_id,
-  //                 total: this.cartDataClient.total
-  //               }
-  //             };
-  //             this.spinner.hide().then();
-  //             this.router.navigate(['/thankyou'], navigationExtras).then(p => {
-  //               this.cartDataClient = {prodData: [{incart: 0, id: 0}], total: 0};
-  //               this.cartTotal$.next(0);
-  //               localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
-  //             });
-  //           }
-  //         });
-  //
-  //       })
-  //     } else {
-  //       this.spinner.hide().then();
-  //       this.router.navigateByUrl('/checkout').then();
-  //       this.toast.error(`Sorry, failed to book the order`, "Order Status", {
-  //         timeOut: 1500,
-  //         progressBar: true,
-  //         progressAnimation: 'increasing',
-  //         positionClass: 'toast-top-right'
-  //       })
-  //     }
-  //   })
-  // }
-
-
   private CalculateTotal() {
     let Total = 0;
-
     this.cartDataServer.data.forEach(p => {
       const {numInCart} = p;
       const {price} = p.product;
-      // @ts-ignore
       Total += numInCart * price;
     });
     this.cartDataServer.total = Total;
@@ -291,7 +235,7 @@ export class CartService {
   private resetServerData() {
     this.cartDataServer = {
       data: [{
-        product: {} as ProductData,
+        product: {} as Product,
         numInCart: 0
       }],
       total: 0
@@ -299,17 +243,14 @@ export class CartService {
     this.cartDataObs$.next({...this.cartDataServer});
   }
 
+  private updateLocalStorage() {
+    console.log("works")
+    localStorage.setItem('cart', JSON.stringify(this.cartDataClient));
+  }
+
+
 }
 
-interface OrderConfirmationResponse {
-  order_id: number;
-  success: boolean;
-  message: string;
-  products: [{
-    id: number,
-    numInCart: number
-  }]
-}
 
 
 

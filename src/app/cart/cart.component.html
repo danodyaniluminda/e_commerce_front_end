@@ -27,7 +27,7 @@
               <span class="text-danger" style="cursor: pointer;"><i class="fa fa-trash" (click)="cartService.DeleteProductFromCart(i)"></i></span>
             </td>
             <td class="align-middle text-center">
-              <img [src]="c.product.image" alt="{{c.product.name}}" height="60">
+              <img [src]="c.product.imageUrl" alt="{{c.product.name}}" height="60">
             </td>
             <td class="align-middle">{{c.product.name}}</td>
             <td class="align-middle">{{c.product.price | currency:'USD'}}</td>
@@ -61,3 +61,17 @@
   </ng-container>
 </div>
 <app-footer></app-footer>
+
+
+<!--<div>-->
+<!--  <button (click)="onClick(1)">Get Product 1</button>-->
+<!--  <button (click)="onClick(2)">Get Product 2</button>-->
+<!--  &lt;!&ndash; Add more buttons for other products &ndash;&gt;-->
+<!--</div>-->
+
+<!--<div *ngIf="product1">-->
+<!--  <h1>{{ product1.name }}</h1>-->
+<!--  <p>{{ product1.rating }}</p>-->
+<!--  <p>Price: ${{ product1.price }}</p>-->
+<!--</div>-->
+
