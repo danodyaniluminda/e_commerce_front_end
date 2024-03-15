@@ -1,3 +1,10 @@
+
+export interface serverResponse  {
+  count: number;
+  products: ProductData[]
+}
+
+
 export interface ProductData {
   id: number;
   name: string;
@@ -21,9 +28,15 @@ export interface ProductData {
   length: number;
   serialNumber: string;
   hsCode: string;
+  description: string; // Use lowercase 'string' instead of 'String'
+  image: string; // Use lowercase 'string' instead of 'String'
+  price: number; // Use lowercase 'number' instead of 'Number'
+  quantity: number; // Use lowercase 'number' instead of 'Number'
+  images: string; // Assuming it's an array of image URLs
 }
 
-export const SAMPLE_PRODUCT_DATA: ProductData[] = [
+
+export const SAMPLE_ADDED_PRODUCT_DATA: ProductData[] = [
   {
     id: 1060,
     name: 'Product 1',
@@ -47,6 +60,11 @@ export const SAMPLE_PRODUCT_DATA: ProductData[] = [
     length: 5,
     serialNumber: 'P1SN12345',
     hsCode: '1234567890',
+    description: 'order now',
+    image: 'hello url',
+    price: 10,
+    quantity: 10,
+    images: 'url',
   },
   {
     id: 2123,
@@ -71,6 +89,11 @@ export const SAMPLE_PRODUCT_DATA: ProductData[] = [
     length: 5,
     serialNumber: 'P2SN54321',
     hsCode: '0987654321',
+    description: 'order now',
+    image: 'hello url',
+    price: 10,
+    quantity: 10,
+    images: 'url',
   }
 ];
 

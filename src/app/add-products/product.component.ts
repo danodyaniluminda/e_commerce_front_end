@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder,Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {ProductService} from "../service/product.service";
-import {ProductData, SAMPLE_PRODUCT_DATA} from "./product-model.component";
+import {ProductData, SAMPLE_ADDED_PRODUCT_DATA} from "./product-model.component";
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-product',
+  selector: 'app-add-products',
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -18,7 +18,7 @@ addEditProductForm: any;
   add_product: boolean = false;
   edit_product: any;
   addEditProduct: any;
-  all_product_data: ProductData[] = SAMPLE_PRODUCT_DATA;
+  all_product_data: ProductData[] = SAMPLE_ADDED_PRODUCT_DATA;
 
 
   constructor(private formBuilder: FormBuilder, private router: Router, private product_service: ProductService) { }
@@ -90,7 +90,7 @@ addEditProductForm: any;
   addNewProduct() {
     this.addEditProduct = true;
     if (this.addEditProductForm.valid) {
-      // Perform product to back end
+      // Perform add-products to back end
       const newProductData = this.addEditProductForm.value;
       console.log('New Product Data:', newProductData);
 
@@ -98,14 +98,14 @@ addEditProductForm: any;
       Swal.fire({
         icon: 'success',
         title: 'Success!',
-        text: 'New product added successfully!',
+        text: 'New add-products added successfully!',
       });
       const modelDiv = document.getElementById('addEditProductModal');
       if(modelDiv!= null) {
         modelDiv.style.display = 'none';
       }
 
-      // After adding the product, you might want to reset the form
+      // After adding the add-products, you might want to reset the form
       this.addEditProductForm.reset();
     } else {
       // If the form is not valid, display error message using SweetAlert
@@ -158,7 +158,7 @@ addEditProductForm: any;
   updateProduct(): void {
     this.addEditProduct = true;
     if (this.addEditProductForm.valid) {
-      // Perform logic to update the product on the backend
+      // Perform logic to update the add-products on the backend
       const updatedProductData = this.addEditProductForm.value;
       console.log('Updated Product Data:', updatedProductData);
 
@@ -190,12 +190,12 @@ addEditProductForm: any;
 
   deleteProduct(productId: number): void {
 
-    console.log('Deleting product with ID:', productId);
+    console.log('Deleting add-products with ID:', productId);
     //
     // // Display confirmation message using SweetAlert
     // Swal.fire({
     //   title: 'Are you sure?',
-    //   text: 'You will not be able to recover this product!',
+    //   text: 'You will not be able to recover this add-products!',
     //   icon: 'warning',
     //   showCancelButton: true,
     //   confirmButtonText: 'Yes, delete it!',
@@ -204,7 +204,7 @@ addEditProductForm: any;
     // }).then((result) => {
     //   if (result.isConfirmed) {
     //     // Perform the actual deletion
-    //     // Assuming you have a service method to delete the product
+    //     // Assuming you have a service method to delete the add-products
     //     this.product_service.deleteProduct(productId).subscribe(
     //       () => {
     //         // On successful deletion
@@ -213,14 +213,14 @@ addEditProductForm: any;
     //           'Product has been deleted.',
     //           'success'
     //         );
-    //         // Optionally, you may refresh the product list after deletion
+    //         // Optionally, you may refresh the add-products list after deletion
     //         this.getAllProduct();
     //       },
     //       (error) => {
     //         // On error during deletion
     //         Swal.fire(
     //           'Error!',
-    //           'Failed to delete product.',
+    //           'Failed to delete add-products.',
     //           'error'
     //         );
     //       }
@@ -228,7 +228,7 @@ addEditProductForm: any;
     //   } else if (result.dismiss === Swal.DismissReason.cancel) {
     //     Swal.fire(
     //       'Cancelled',
-    //       'Your product is safe :)',
+    //       'Your add-products is safe :)',
     //       'info'
     //     );
     //   }

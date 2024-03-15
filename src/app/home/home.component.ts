@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import {Product, SAMPLE_PRODUCT_DATA} from "./home-product.mode";
+import {Product, HOME_PRODUCT_DATA} from "./home-product.mode";
 import {SAMPLE_USER_DATA, UserData} from "../users/user.model";
 
 @Component({
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   hours: number | undefined;
   minutes: number | undefined;
   seconds: number | undefined;
-  products: Product[] = SAMPLE_PRODUCT_DATA;
+  products: Product[] = HOME_PRODUCT_DATA;
 
   ngOnInit() {
     this.startAutoScroll();

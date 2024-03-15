@@ -4,11 +4,14 @@ import {LoginComponent} from "./login/login.component";
 import {MainComponent} from "./main/main.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {RegisterComponent} from "./register/register.component";
-import {ProductComponent} from "./product/product.component";
+import {ProductComponent} from "./add-products/product.component";
 import {CategoryComponent} from "./category/category.component";
 import {UsersComponent} from "./users/users.component";
 import {AdminProfileComponent} from "./users/admin-profile/admin-profile.component";
 import {SettingsComponent} from "./settings/settings.component";
+import {CartComponent} from "./cart/cart.component";
+import {ProductPageComponent} from "./all-product-page/product-page.component";
+import {ViewProductPageComponent} from "./view-product-page/view-product-page.component";
 
 export const routes: Routes = [
   { path: 'home', component: MainComponent },
@@ -20,6 +23,11 @@ export const routes: Routes = [
   { path: 'user-management', component: UsersComponent },
   { path: 'admin-profile', component: AdminProfileComponent },
   { path: 'settings', component: SettingsComponent },
+  { path: 'cart', component: CartComponent },
+  { path: 'all-products', component: ProductPageComponent },
+  { path: 'view-add-products', component: ViewProductPageComponent },
+
+
 
   {
     path: '',
