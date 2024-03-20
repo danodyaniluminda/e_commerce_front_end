@@ -8,6 +8,9 @@ import {CartService} from "../../service/cart.service";
   styleUrl: './main-header.component.css'
 })
 export class MainHeaderComponent implements OnInit{
+
+  cartData: CartModelServer;
+  cartTotal: number;
   // cartData: CartModelServer = {
   //   total: 0,
   //   data: [
@@ -48,21 +51,6 @@ export class MainHeaderComponent implements OnInit{
   //       numInCart: 2 // Sample quantity
   //     }
   //   ]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  cartTotal: number= 0;
   constructor(public cartService: CartService) {
   }
 
@@ -84,11 +72,11 @@ export class MainHeaderComponent implements OnInit{
 
 
 
-    // this.cartService.cartTotal$.subscribe(total => {
-    //   this.cartTotal = total;
-    // });
-    //
-    // this.cartService.cartDataObs$.subscribe(data => this.cartData = data);
+    this.cartService.cartTotal$.subscribe(total => {
+      this.cartTotal = total;
+    });
+
+    this.cartService.cartDataObs$.subscribe(data => this.cartData = data);
   }
 
 

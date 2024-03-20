@@ -1,0 +1,49 @@
+
+/* Flash Sale Input */
+.flash-sale-input {
+  display: flex;
+  align-items: center;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.custom-select {
+  position: relative;
+  width: 80px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #c3d100;
+  background-color: #f5f5f5;
+  font-size: 14px;
+  margin-right: 10px; /* Add margin between select elements */
+}
+
+.custom-select::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 5px 0 5px;
+  border-color: #000 transparent transparent transparent;
+  transform: translateY(-50%);
+}
+
+.submit-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}

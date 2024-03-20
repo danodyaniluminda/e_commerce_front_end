@@ -34,7 +34,7 @@ export const SAMPLE_ADDED_PRODUCT_DATA: ProductData[] = [
   {
     id: 1060,
     name: 'Product 1',
-    uploadPhoto: 'https://example.com/photo1.jpg',
+    uploadPhoto: './../../../assets/img/shop02.png',
     buyPrice: 10,
     sellPrice: 20,
     category: 'Mens',
@@ -63,7 +63,7 @@ export const SAMPLE_ADDED_PRODUCT_DATA: ProductData[] = [
   {
     id: 2123,
     name: 'Product 2',
-    uploadPhoto: 'https://example.com/photo2.jpg',
+    uploadPhoto: './../../../assets/img/shop03.png',
     buyPrice: 15,
     sellPrice: 25,
     category: 'Women',

@@ -1,4 +1,4 @@
-
+/* Full banner*/
 #image-wrapper {
   position: relative;
 }
@@ -33,6 +33,43 @@
 #prev-image-btn {
   left: 20px;
 }
+
+
+
+/*Small banner*/
+
+#image-wrapper-1 {
+  position: relative;
+  height: 200px; /* Adjust height as needed */
+  width: 100%; /* Make the banner same size as container */
+  overflow: hidden;
+}
+
+#transition-image-1 {
+  width: 100%;
+  height: auto;
+}
+
+.navigation-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#next-image-btn-1 {
+  right: 3px;
+}
+
+#prev-image-btn-1 {
+  left: 3px;
+}
+
+
 
 
 
@@ -190,5 +227,27 @@
 .next-button {
   right: 10px;
 }
+
+
+.red-box {
+  background-color: red;
+  border: 2px solid red;
+  border-radius: 5px;
+  padding: 10px;
+  display: inline-flex; /* Use flexbox */
+  justify-content: center; /* Horizontally center content */
+  margin-left: 20px; /* Adjust the left margin as needed */
+  width: 200px; /* Adjust the width as needed */
+  height: 50px; /* Adjust the height as needed */
+}
+
+
+.red-box h4 {
+  color: white; /* Change h4 text color */
+  font-size: 16px; /* Adjust the font size as needed */
+  font-weight: normal; /* Remove boldness */
+}
+
+
 
 

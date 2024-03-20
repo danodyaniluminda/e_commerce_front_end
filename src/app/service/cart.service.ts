@@ -78,7 +78,7 @@ export class CartService {
     return subTotal;
   }
 
-  AddProductToCart(id: number, quantity?: number) {
+  AddProductToCart(id: number | undefined, quantity?: number) {
 
     this.productService.getSingleProduct(id).subscribe(prod => {
       // If the cart is empty

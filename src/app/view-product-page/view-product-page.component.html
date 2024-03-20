@@ -1,44 +1,138 @@
 <app-header></app-header>
 <app-main-header></app-main-header>
-
-<div class="product-container" *ngIf="product && product.length > 0">
-  <div *ngFor="let item of product" class="product-card">
-    <div class="product-details">
-      <h2>{{ item.name }}</h2>
-      <p class="quantity">Quantity: {{ item.quantity }}</p>
-      <p class="ratings">Ratings: {{ item.rating }}</p>
-      <p class="price">Price: ${{ item.price }}</p>
-
-      <img [src]="item.imageUrl" alt="Main Image" class="main-image">
-
-<!--      <div class="gallery">-->
-<!--        <div class="gallery-images" #galleryImages>-->
-<!--          <div *ngFor="let image of item.imageURLS">-->
-<!--            <img [src]="image" alt="Gallery Image">-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <button class="prev-button" (click)="scrollGallery(-1)">Previous</button>-->
-<!--        <button class="next-button" (click)="scrollGallery(1)">Next</button>-->
-<!--      </div>-->
-
-
-      <h3>Features:</h3>
-
-      <h3>Dimensions:</h3>
-      <p>{{ item.size }}</p>
-
-      <p class="description">{{ item.productDesc }}</p>
-      <div class="buttons-container">
-        <button class="add-to-cart-btn" (click)="addToCart(item.id)">Add to Cart</button>
-        <button class="buy-now-btn">Buy Now</button>
+<!-- SECTION -->
+<div class="section">
+  <!-- container -->
+  <div class="container" *ngFor="let item of product" >
+    <!-- row -->
+    <div class="row d-flex">
+      <!-- Product thumb imgs -->
+      <div class="col-md-2  col-md-pull-5 ">
+        <ng-template [ngIf]="item.thumbimages.length > 0">
+          <div id="product-imgs">
+            <div *ngFor="let t of item.thumbimages" class="product-preview" (click)="changeMainImage(t)" style="cursor: pointer;">
+              <img [src]="t" alt="">
+            </div>
+          </div>
+        </ng-template>
+        <ng-template [ngIf]="item.thumbimages.length === 0">
+          <div id="product-imgs">
+            <div class="product-preview">
+              <img [src]="item.imageUrl" alt="">
+            </div>
+          </div>
+        </ng-template>
       </div>
-      <!-- Additional details here as needed -->
+      <!-- /Product thumb imgs -->
+
+      <!-- Product main img -->
+      <div class="col-md-5 col-md-push-2">
+        <div class="card">
+          <div class="card-body" id="product-main-img">
+            <img class="img-fluid" [src]="item.imageUrl" alt="">
+          </div>
+        </div>
+      </div>
+      <!-- /Product main img -->
+
+
+
+      <!-- Product details -->
+      <div class="col-md-5">
+        <div class="product-details">
+          <h1 class="product-name">{{item?.name}}</h1>
+          <div>
+            <div class="product-rating">
+              <span *ngFor="let star of getStarIcons(averageRating)">
+                <ng-container *ngIf="star === 'full'">
+                  <i class="fa fa-star product-rating-star"></i>
+                </ng-container>
+                <ng-container *ngIf="star === 'half'">
+                  <i class="fa fa-star-half product-rating-star"></i>
+                </ng-container>
+                <ng-container *ngIf="star === 'empty'">
+                  <i class="fa fa-star-o product-rating-star"></i>
+                </ng-container>
+              </span>
+            </div>
+            <a class="review-link" href="#">{{ item.noReviews}} Review(s) | Add your review</a>
+          </div>
+          <div>
+            <h3 class="product-price">{{item?.price | currency:'USD'}} </h3>
+              <span class="product-available" *ngIf="item.quantity > 0">In Stock</span>
+              <span class="product-out-of-stock" *ngIf="item.quantity <= 0">Out of Stock</span>
+          </div>
+<!--          description, shipsfrom, specifications, brand, discount, package dimentions, itemno-->
+          <div class="product-details">
+            <ul class="product-links">
+              <li class="fa fa-tag">Category:</li>
+              <li><a href="#">{{ item?.name }}</a></li>
+            </ul>
+            <p><i class="fa fa-list-ul"></i>Description: {{ item?.productDesc }}</p>
+            <p><i class="fa fa-map-marker"></i> Ships from: {{ item?.itemLocation }}</p>
+            <p><i class="fa fa-industry"></i> Brand: {{ item?.brand }}</p>
+            <p><i class="fa fa-percent"></i> Discount: {{ item?.discount }}</p>
+            <p><i class="fa fa-barcode"></i> Item Number: {{ item?.id }}</p>
+
+            <!-- Package Dimensions -->
+            <div class="package-dimensions">
+              <p><i class="fa fa-cube"></i> Package Dimensions: </p>
+              <p class="dimension-details">Width: {{ item?.packageDimensions?.width }}</p>
+              <p class="dimension-details"> Height: {{ item?.packageDimensions?.height }}</p>
+              <p class="dimension-details">  Length: {{ item?.packageDimensions?.length }}</p>
+            </div>
+
+            <!-- Specifications -->
+            <div class="specifications">
+              <p><i class="fa fa-check-circle"></i> Specifications:</p>
+              <ul>
+                <li *ngFor="let spec of item?.specifications"><i class="fa fa-check"></i> {{ spec }}</li>
+              </ul>
+            </div>
+          </div>
+
+
+
+
+          <div class="add-to-cart">
+            <div class="qty-label">
+              Qty
+              <div class="input-number">
+                <input #quantity [max]="item?.quantity || 0" [min]="(item?.quantity ?? 0) >= 1 ? (item?.quantity ?? 0) : 0" readonly type="number" value="{{ (item?.quantity ?? 0) >= 1 ? 1 : 0 }}">
+                <span class="qty-up" (click)="Increase()">+</span>
+                <span class="qty-down" (click)="Decrease()">-</span>
+              </div>
+            </div>
+
+            <!-- Color -->
+            <div class="product-attribute">
+              <label class="qty-label" for="color">Color:</label>
+              <select id="color" class="product-select">
+                <option>{{ item.color }}</option>
+              </select>
+            </div>
+
+            <!-- Size -->
+            <div class="product-attribute">
+              <label class="qty-label" for="size">Size:</label>
+              <select id="size" class="product-select">
+                <option>{{ item.size }}</option>
+              </select>
+            </div>
+
+            <button class="btn btn-primary" style="margin-top: 10px; margin-right: 10px" (click)="AddProduct(item.id)"><i class="fa fa-shopping-cart"></i> Add To Cart</button>
+            <button class="btn btn-success" style="margin-top: 10px;margin-right: 10px" (click)="AddProduct(item.id)"><i class="fa fa-dollar"></i> Buy Now</button>
+
+
+          </div>
+
+        </div>
+      </div>
+      <!-- /Product details -->
     </div>
+    <!-- /row -->
   </div>
+  <!-- /container -->
 </div>
-
-<div class="loading" *ngIf="!product">
-  <p>Loading product...</p>
-</div>
-
+<!-- /SECTION -->
 <app-footer></app-footer>

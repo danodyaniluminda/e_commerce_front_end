@@ -120,3 +120,20 @@
   padding-top: 15px;
   padding-bottom: 15px;
 }
+.menu-togle {
+  position: fixed;
+  top: 10px; /* adjust as needed */
+  left: 10px; /* adjust as needed */
+}
+
+.menu-togle a {
+  display: inline-block;
+  padding: 10px;
+  background-color: #333; /* background color of the menu button */
+  color: #fff; /* text color of the menu button */
+  text-decoration: none;
+}
+
+.menu-togle a:hover {
+  background-color: #555; /* background color of the menu button on hover */
+}

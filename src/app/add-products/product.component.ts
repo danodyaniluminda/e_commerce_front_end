@@ -19,6 +19,7 @@ addEditProductForm: any;
   edit_product: any;
   addEditProduct: any;
   all_product_data: ProductData[] = SAMPLE_ADDED_PRODUCT_DATA;
+  uploadedFiles: File[] = [];
 
 
   constructor(private formBuilder: FormBuilder, private router: Router, private product_service: ProductService) { }
@@ -26,7 +27,7 @@ addEditProductForm: any;
   ngOnInit() {
     this.addEditProductForm = this.formBuilder.group({
       name: ['', Validators.required],
-      uploadPhoto: ['', Validators.required],
+      uploadPhoto: ['', [Validators.required, this.validateMaxUploads.bind(this)]],
       productDesc: ['', Validators.required],
       buyPrice: ['', Validators.required],
       sellPrice: ['', Validators.required],
@@ -79,12 +80,15 @@ addEditProductForm: any;
 
   //Disable popup window
   closeModal() {
-    this.addEditProductForm.reset();
-    this.add_product = false;
-    const modelDiv = document.getElementById('addEditProductModal');
-    if(modelDiv!= null) {
-      modelDiv.style.display = 'none';
+    const modalDiv = document.getElementById('addEditProductModal');
+    if (modalDiv != null) {
+      modalDiv.style.display = 'none';
     }
+
+    // Reset the form and flags
+    this.addEditProductForm.reset();
+    this.addEditProduct = false;
+    this.edit_product = false;
   }
   //Perform Add new products
   addNewProduct() {
@@ -237,6 +241,44 @@ addEditProductForm: any;
   goToDashboard(): void {
     this.router.navigate(['/admin-dashboard']); // Change '/dashboard' to the actual route of your dashboard
   }
+// Upload image lesthan 5
+
+  onFileChange(event: any) {
+    const files = event.target.files;
+    if (files.length > 5) {
+      // Clear previously selected files
+      event.target.value = null;
+      // Display error message or handle accordingly
+      return;
+    }
+    // Clear previously selected files
+    this.uploadedFiles = [];
+    // Add selected files to the uploadedFiles array
+    for (let i = 0; i < files.length; i++) {
+      this.uploadedFiles.push(files[i]);
+    }
+  }
+
+  validateMaxUploads(control: any) {
+    const files: File[] = control.value;
+    if (files && files.length > 5) {
+      return { maxUploadsExceeded: true };
+    }
+    return null;
+  }
+
+  get uploadPhoto() {
+    return this.addEditProductForm.get('uploadPhoto');
+  }
+
+  onSubmit() {
+    if (this.addEditProductForm.valid) {
+      // Handle form submission
+      console.log('Form submitted successfully');
+    }
+  }
+
+
 
   }
 

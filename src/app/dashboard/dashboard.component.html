@@ -3,9 +3,141 @@
   <div class="row">
     <app-sidenav></app-sidenav>
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h4>Welcome to Dashboard</h4>
       </div>
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home Page Layout</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Flash Sale</a>
+          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Hot Deal</a>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+          <div class="page-layout-container border-bottom">
+            <h5>Home Page Layout Setup </h5>
+            <div class="row">
+              <div class="col-md-12">
+                <input type="checkbox" (change)="toggleImageVisibility()" [checked]="dashboardService.isImageVisible">
+                <label>Full Screen Banner</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <input type="checkbox" (change)="toggleBanner_2()" [checked]="dashboardService.isBanner_2">
+                <label>Thin Banner</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <input type="checkbox" (change)="toggleCategory()" [checked]="dashboardService.categoryVisible">
+                <label>Category</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <input type="checkbox" (change)="toggleFlashSale()" [checked]="dashboardService.flashSaleVisible">
+                <label>Flash Sale</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <input type="checkbox" (change)="toggleNewProducts()" [checked]="dashboardService.newProductVisible">
+                <label>New Product Section</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <input type="checkbox" (change)="toggleHotDeal()" [checked]="dashboardService.hotDealVisible">
+                <label>Hot Deal Section</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+          <!-- Flash Sale Input -->
+          <div class="flash-container">
+            <h5>Set Your Flash Sale Count </h5>
+            <div class="flash-sale-input">
+              <label>Days:</label>
+              <select [(ngModel)]="days" class="custom-select">
+                <option *ngFor="let day of dayOptions" [value]="day">{{ day }}</option>
+              </select>
+
+              <label>Hours:</label>
+              <select [(ngModel)]="hours" class="custom-select">
+                <option *ngFor="let hour of hourOptions" [value]="hour">{{ hour }}</option>
+              </select>
+
+              <label>Minutes:</label>
+              <select [(ngModel)]="minutes" class="custom-select">
+                <option *ngFor="let minute of minuteOptions" [value]="minute">{{ minute }}</option>
+              </select>
+
+              <label>Seconds:</label>
+              <select [(ngModel)]="seconds" class="custom-select">
+                <option *ngFor="let second of secondOptions" [value]="second">{{ second }}</option>
+              </select>
+
+              <button (click)="submitTime()" class="submit-button">Submit</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+
+          <!-- Hot Deal Input -->
+          <div class="flash-container">
+            <h5>Set Your Hot Deal Offer Period</h5>
+            <div class="flash-sale-input">
+              <label>Days:</label>
+              <select [(ngModel)]="days" class="custom-select">
+                <option *ngFor="let day of dayOptions" [value]="day">{{ day }}</option>
+              </select>
+
+              <label>Hours:</label>
+              <select [(ngModel)]="hours" class="custom-select">
+                <option *ngFor="let hour of hourOptions" [value]="hour">{{ hour }}</option>
+              </select>
+
+              <label>Minutes:</label>
+              <select [(ngModel)]="minutes" class="custom-select">
+                <option *ngFor="let minute of minuteOptions" [value]="minute">{{ minute }}</option>
+              </select>
+
+              <label>Seconds:</label>
+              <select [(ngModel)]="seconds" class="custom-select">
+                <option *ngFor="let second of secondOptions" [value]="second">{{ second }}</option>
+              </select>
+
+              <button (click)="submitTime()" class="submit-button">Submit</button>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+
+
+
+
+<br>
+
+    <br>
+
+
     </main>
   </div>
 </div>

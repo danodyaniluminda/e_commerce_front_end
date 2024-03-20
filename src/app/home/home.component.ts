@@ -3,6 +3,8 @@ import {Product, HOME_PRODUCT_DATA} from "./home-product.mode";
 import {SAMPLE_USER_DATA, UserData} from "../users/user.model";
 import {CartService} from "../service/cart.service";
 import {Router} from "@angular/router";
+import {DashboardService} from "../service/dashboard.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -27,11 +29,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   minutes: number | undefined;
   seconds: number | undefined;
   products: Product[] = HOME_PRODUCT_DATA;
+  countdown: string = '';
+  public timeDataSubscription: Subscription;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public dashboardService: DashboardService) { }
 
 
   ngOnInit() {
+    console.log(this.countdown);
+    this.getTimeData();
+
+    // Subscribe to changes in time data
+    this.timeDataSubscription = this.dashboardService.getTimeData().subscribe((timeData: any) => {
+      this.updateCountdown(timeData);
+    });
     this.startAutoScroll();
     this.categoriesList = [
       { name: 'Category 1', icon: 'fa fa-home fa-3x' },
@@ -145,8 +156,47 @@ export class HomeComponent implements OnInit, OnDestroy {
   shopNow(product: any) {
     // Logic for shopping now, assuming product has an ID property
     this.router.navigate(['/product', product.id]);
-
-
-
   }
+
+  updateCountdown(timeData: any): void {
+    // Calculate countdown based on time data
+    const endTime = new Date(timeData.endTime).getTime();
+    const now = new Date().getTime();
+    let timeDifference = endTime - now;
+
+    if (timeDifference <= 0) {
+      this.countdown = 'Sale ended';
+    } else {
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      timeDifference %= (1000 * 60 * 60 * 24);
+      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      this.countdown = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+  }
+
+  getTimeData() {
+    const timeDataString = localStorage.getItem(this.dashboardService.STORAGE_KEY_FLASH_COUNT);
+    if (timeDataString !== null) {
+      const timeData = JSON.parse(timeDataString);
+      if (timeData) {
+        this.days = timeData.days;
+        this.hours = timeData.hours;
+        this.minutes = timeData.minutes;
+        this.seconds = timeData.seconds;
+
+        console.log('Days:', this.days);
+        console.log('Hours:', this.hours);
+        console.log('Minutes:', this.minutes);
+        console.log('Seconds:', this.seconds);
+      }
+    }
+  }
+
+
+
+
+
 }

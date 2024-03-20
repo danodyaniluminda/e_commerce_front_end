@@ -46,27 +46,25 @@
             <a  href="/cart"  aria-expanded="true" style="cursor: pointer;">
               <i class="fa fa-shopping-cart"></i>
               <span>Your Cart</span>
-<!--              <div class="qty">{{cartData.data[0].numInCart !== 0 ? cartData.data.length : 0}}</div>-->
+              <div class="qty">{{cartData.data[0].numInCart !== 0 ? cartData.data.length : 0}}</div>
             </a>
             <div class="cart-dropdown" >
-<!--              <div class="cart-list" *ngIf="cartData.data[0].numInCart !== 0">-->
-<!--                <div class="product-widget" *ngFor="let c of cartData.data; let i=index">-->
-<!--                  <div class="product-img">-->
-<!--                    <img src="{{c.product.image}}" alt="" width="20px">-->
-<!--                  </div>-->
-<!--                  <div class="product-body">-->
-<!--                    <h3 class="product-name"><a href="#">{{c.product.name}}</a></h3>-->
-<!--                    <span>{{c.numInCart}} x </span>{{c.product.price | currency:'USD'}}-->
-<!--                  </div>-->
-<!--                  <button class="delete" (click)="cartService.DeleteProductFromCart(i)"><i class="fa fa-close"></i></button>-->
-<!--                </div>-->
-
-
-<!--              </div>-->
-<!--              <div class="cart-summary">-->
-<!--                <small>{{cartData.data[0].numInCart !== 0 ? cartData.data.length : 0}} Item(s) selected</small>-->
-<!--                <h5>TOTAL : {{cartTotal | currency:'USD'}}</h5>-->
-<!--              </div>-->
+              <div class="cart-list" *ngIf="cartData.data[0].numInCart !== 0">
+                <div class="product-widget" *ngFor="let c of cartData.data; let i=index">
+                  <div class="product-img">
+                    <img src="{{c.product.imageUrl}}" alt="" width="20px">
+                  </div>
+                  <div class="product-body">
+                    <h3 class="product-name"><a href="#">{{c.product.name}}</a></h3>
+                    <span>{{c.numInCart}} x </span>{{c.product.price | currency:'USD'}}
+                  </div>
+                  <button class="delete" (click)="cartService.DeleteProductFromCart(i)"><i class="fa fa-close"></i></button>
+                </div>
+              </div>
+              <div class="cart-summary">
+                <small>{{cartData.data[0].numInCart !== 0 ? cartData.data.length : 0}} Item(s) selected</small>
+                <h5>TOTAL : {{cartTotal | currency:'USD'}}</h5>
+              </div>
               <div class="cart-btns">
                 <a routerLink="/cart">View Cart</a>
                 <a routerLink="/checkout">Checkout <i class="fa fa-arrow-circle-right"></i></a>
@@ -75,14 +73,14 @@
           </div>
           <!-- /Cart -->
 
-          <!-- Menu Toogle -->
-          <div class="menu-toggle">
-            <a href="#">
-              <i class="fa fa-bars"></i>
-              <span>Menu</span>
-            </a>
-          </div>
-          <!-- /Menu Toogle -->
+<!--          &lt;!&ndash; Menu Toggle &ndash;&gt;-->
+<!--          <div class="menu-togle">-->
+<!--            <a href="#">-->
+<!--              <i class="fa fa-bars"></i>-->
+<!--              <span>Menu</span>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--          &lt;!&ndash; /Menu Toggle &ndash;&gt;-->
         </div>
       </div>
       <!-- /ACCOUNT -->

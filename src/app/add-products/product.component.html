@@ -35,7 +35,7 @@
   <tbody>
   <tr *ngFor="let product_data of all_product_data; let i = index">
     <td>{{product_data.name}}</td>
-    <td>{{product_data.uploadPhoto}}</td>
+    <td><img [src]="product_data.uploadPhoto" alt="" style="max-width: 100px; max-height: 100px;"></td>
     <td>{{product_data.category}}</td>
     <td>{{product_data.subCategory}}</td>
     <td>{{product_data.brand}}</td>
@@ -76,12 +76,13 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for=>Product Image URL</label>
-                  <input type="url" class="form-control" formControlName="uploadPhoto" [ngClass]="{'is-invalid':addEditProduct && rf.uploadPhoto.errors}">
-                  <div *ngIf="addEditProduct && rf.uploadPhoto.errors" class="invalid-feedback">
-                    <div *ngIf="rf.uploadPhoto.errors.required">Please upload file</div>
+                  <label for="uploadPhoto">Product Image Upload (Max 5)</label>
+                  <input type="file" accept="image/*" multiple class="form-control" (change)="onFileChange($event)" #uploadPhotoInput>
+                  <div *ngIf="addEditProduct && uploadedFiles.length > 5" class="invalid-feedback">
+                    Maximum of 5 images allowed.
                   </div>
                 </div>
+
                 <div class="form-group">
                   <label for=>Description</label>
                   <textarea class="form-control" rows="3" formControlName="productDesc" [ngClass]="{'is-invalid':addEditProduct && rf.productDesc.errors}"></textarea>

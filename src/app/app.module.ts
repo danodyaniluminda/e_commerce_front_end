@@ -27,6 +27,7 @@ import {ToastrModule} from "ngx-toastr";
 import {ProductPageComponent} from "./all-product-page/product-page.component";
 import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 import {ViewProductPageComponent} from "./view-product-page/view-product-page.component";
+import {MatSlideToggle, MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 
@@ -50,32 +51,34 @@ import {ViewProductPageComponent} from "./view-product-page/view-product-page.co
 
 
   ],
-  imports: [
-    BrowserModule,
-    BsDropdownModule,
-    BrowserAnimationsModule,
-    NoopAnimationsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    FormsModule,
-    JsonPipe,
-    NgIf,
-    CurrencyPipe,
-    AppRoutingModule,
-    HttpClientModule,
-    GoogleMapsModule,
-    SidenavComponent,
-    AdminHeaderComponent,
-    MatIcon,
-    ToastrModule.forRoot({
-      timeOut: 3000, // Toast display duration (in milliseconds)
-      positionClass: 'toast-top-right', // Toast position
-      preventDuplicates: true, // Prevent duplicate toasts
-      closeButton: true // Show close button on toasts
-    })
+    imports: [
+        BrowserModule,
+        BsDropdownModule,
+        BrowserAnimationsModule,
+        NoopAnimationsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        FormsModule,
+        JsonPipe,
+        NgIf,
+        CurrencyPipe,
+        AppRoutingModule,
+        HttpClientModule,
+        GoogleMapsModule,
+        SidenavComponent,
+        AdminHeaderComponent,
+        MatIcon,
+        MatSlideToggleModule,
+        ToastrModule.forRoot({
+            timeOut: 3000, // Toast display duration (in milliseconds)
+            positionClass: 'toast-top-right', // Toast position
+            preventDuplicates: true, // Prevent duplicate toasts
+            closeButton: true // Show close button on toasts
+        }),
+        MatSlideToggle
 
 
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent],
   exports: [

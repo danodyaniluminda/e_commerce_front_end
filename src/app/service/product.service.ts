@@ -28,7 +28,7 @@ export class ProductService {
   // }
 
 
-  getSingleProduct(id: number): Observable<Product> {
+  getSingleProduct(id: number | undefined): Observable<Product> {
     // Mocking the behavior of fetching a single product by ID
     const product = HOME_PRODUCT_DATA.find(prod => prod.id === id);
     if (product) {

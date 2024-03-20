@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div id="image-wrapper" class="col-md-12">
+    <div id="image-wrapper" class="col-md-12" *ngIf="dashboardService.isImageVisible">
       <img id="transition-image" [src]="images[currentImageIndex]" alt="Transition Image">
       <!-- Next Image Arrow -->
       <button id="next-image-btn" class="navigation-arrow" (click)="nextImage()">
@@ -15,10 +15,30 @@
 </div>
 
 
+<div class="container">
+  <div class="row">
+    <div id="image-wrapper-1" class="col-md-12" *ngIf="dashboardService.isBanner_2">
+      <img id="transition-image-1" [src]="images[currentImageIndex]" alt="Transition Image">
+      <!-- Next Image Arrow -->
+      <button id="next-image-btn-1" class="navigation-arrow" (click)="nextImage()">
+        <i class="fa fa-arrow-circle-o-right fa-2x"></i>
+      </button>
+      <!-- Previous Image Arrow -->
+      <button id="prev-image-btn-1" class="navigation-arrow" (click)="prevImage()">
+        <i class="fa fa-arrow-circle-o-left fa-2x"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 <!-- SECTION -->
-<div class="section">
+<div class="section" *ngIf="dashboardService.categoryVisible">
   <!-- container -->
-  <div class="container">
+  <div class="container"  >
     <!-- section title -->
     <div class="col-md-12">
       <div class="section-title">
@@ -36,25 +56,22 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-<!--    &lt;!&ndash; Arrows outside categories container &ndash;&gt;-->
-<!--    <div class="arrow left" (click)="scrollCategories('left')">-->
-<!--      <i class="fa fa-angle-left"></i>-->
-<!--    </div>-->
-<!--    <div class="arrow right" (click)="scrollCategories('right')">-->
-<!--      <i class="fa fa-angle-right"></i>-->
-<!--    </div>-->
 
-<!-- SECTION -->
-<div class="section">
-  <!-- container -->
-  <div class="container">
-    <!-- row -->
-      <div class="row justify-content-center">
+
+    <!-- SECTION -->
+    <div class="section" *ngIf="dashboardService.flashSaleVisible">
+      <!-- container -->
+      <div class="container">
+        <!-- row -->
         <div class="col-md-12">
           <div class="section-title">
-            <h2 class="title">New Products</h2>
-          </div>
+            <h2 class="title">Flash Sale </h2>
+            <div class="red-box">
+              <h4>Ends in:{{ days }}d {{ hours }}:{{ minutes }}:{{ seconds }}</h4>
+            </div>
         </div>
         <div class="col-md-13">
           <div class="products-container" #container>
@@ -82,6 +99,48 @@
         </div>
       </div>
     </div>
+    </div>
+
+
+
+
+
+    <!-- SECTION -->
+    <div class="section" *ngIf="dashboardService.newProductVisible">
+      <!-- container -->
+      <div class="container">
+        <!-- row -->
+          <div class="col-md-12">
+            <div class="section-title">
+              <h2 class="title">New Products</h2>
+            </div>
+          </div>
+          <div class="col-md-13">
+            <div class="products-container" #container>
+              <!-- Product items -->
+              <div class="product-item" *ngFor="let product of products">
+                <!-- Shop -->
+                <div class="shop-img">
+                  <img [src]="product.imageUrl" alt="">
+                </div>
+                <div class="shop-body">
+                  <h3>{{ product.name }}</h3>
+                  <p>Price: ${{ product.price }}</p>
+                  <p>Rating: {{ product.rating }}</p>
+                  <a (click)="shopNow(product)" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+                <!-- /Shop -->
+              </div>
+              <!-- /Product items -->
+            </div>
+            <!-- Navigation arrows -->
+            <div class="navigation-arrows">
+              <button class="prev-btn" (click)="scrollLeft()"><i class="fa fa-chevron-left"></i></button>
+              <button class="next-btn" (click)="scrollRight()"><i class="fa fa-chevron-right"></i></button>
+            </div>
+          </div>
+      </div>
+    </div>
 
 
 
@@ -91,7 +150,7 @@
 
 
     <!-- HOT DEAL SECTION -->
-    <div id="hot-deal" class="section">
+    <div id="hot-deal" class="section" *ngIf="dashboardService.hotDealVisible">
       <!-- container-fluid instead of container -->
       <div class="container-fluid">
         <!-- row -->
@@ -136,10 +195,13 @@
     </div>
     <!-- /HOT DEAL SECTION -->
 
-</div>
-</div>
 
 
 
+
+  <div>
+    <h2>Flash Sale Countdown:</h2>
+    <p>{{ countdown }}</p>
+  </div>
 
 
